@@ -1,0 +1,231 @@
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send("Home Page");
+});
+
+// Route Parameter
+app.get('/user/:id', (req, res) => {
+    res.send("User ID: " + req.params.id);
+});
+
+// Query Parameter
+app.get('/search', (req, res) => {
+    res.send("Name: " + req.query.name);
+});
+
+// URL Building
+app.get('/link', (req, res) => {
+    res.send('<a href="/user/101">User Link</a>');
+});
+
+app.listen(3000);
+
+
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let users = [];
+
+// Accept data
+app.post('/users', (req, res) => {
+    users.push(req.body);
+    res.send("Data Added");
+});
+
+// Retrieve data
+app.get('/users', (req, res) => {
+    res.json(users);
+});
+
+// Delete data
+app.delete('/users/:id', (req, res) => {
+    users = users.filter(u => u.id != req.params.id);
+    res.send("Data Deleted");
+});
+
+app.listen(3000);
+
+
+
+
+const express = require('express');
+const app = express();
+
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => {
+    res.render('home', {name: 'Ravi'});
+});
+
+app.listen(3000);
+
+
+
+
+
+const express = require('express');
+const app = express();
+
+app.use(express.urlencoded({extended:true}));
+
+app.get('/', (req, res) => {
+    res.send(`
+        <form method="POST" action="/submit">
+        <input name="username">
+        <button>Submit</button>
+        </form>
+    `);
+});
+
+app.post('/submit', (req, res) => {
+    res.send("Welcome " + req.body.username);
+});
+
+app.listen(3000);
+
+
+
+
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+const root = ReactDOM.createRoot(
+    document.getElementById('root')
+);
+
+root.render(<h1>Hello World</h1>);
+
+
+
+
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+function App() {
+    return (
+        <div>
+            <h1>Welcome</h1>
+            <p>This is JSX Program</p>
+        </div>
+    );
+}
+
+ReactDOM.createRoot(
+    document.getElementById('root')
+).render(<App />);
+
+
+
+
+
+
+import React, {useState} from 'react';
+
+function App() {
+    const [count, setCount] = useState(0);
+
+    return (
+        <div>
+            <h2>Hello { "Ravi" }</h2>
+            <h3>Count: {count}</h3>
+            <button onClick={() => setCount(count+1)}>
+                Click
+            </button>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+
+
+
+import React from 'react';
+import './App.css';
+
+function App() {
+    return (
+        <div className="box">
+            <h1>Student Details</h1>
+            <p>Name: Ravi</p>
+            <p>Branch: CSE</p>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+
+
+
+import React from 'react';
+
+function App() {
+    function show() {
+        alert("Button Clicked");
+    }
+
+    return (
+        <button onClick={show}>
+            Click Me
+        </button>
+    );
+}
+
+export default App;
+
+
+
+
+import React from 'react';
+
+function App() {
+    let isLogin = true;
+
+    return (
+        <div>
+            {isLogin ? <h1>Welcome User</h1>
+                     : <h1>Please Login</h1>}
+        </div>
+    );
+}
+
+export default App;
+
+
+
+
+
+import React from 'react';
+
+function App() {
+    const names = ['Ravi', 'Raju', 'Ram'];
+
+    return (
+        <ul>
+            {names.map((name, index) =>
+                <li key={index}>{name}</li>
+            )}
+        </ul>
+    );
+}
+
+export default App;
+
+
+
+
+
+db.students.aggregate([
+    {$group:{_id:null, avgAge:{$avg:"$age"}}}
+])
